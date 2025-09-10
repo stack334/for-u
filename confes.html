@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Would you like to start again with me?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#ffecd2;
+      --bg2:#fcb69f;
+      --accent1:#7b2ff7;
+      --accent2:#f64f59;
+    }
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,-apple-system,'Helvetica Neue',Arial}
+    body{
+      display:grid;place-items:center;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(123,47,247,0.10), transparent 6%),
+                  radial-gradient(900px 400px at 90% 90%, rgba(246,79,89,0.06), transparent 6%),
+                  linear-gradient(135deg,var(--bg1),var(--bg2));
+      overflow:hidden;
+    }
+    .card{
+      width:min(860px,92%);
+      background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.6));
+      border-radius:28px;
+      padding:48px;
+      box-shadow: 0 12px 40px rgba(16,24,40,0.18), inset 0 1px 0 rgba(255,255,255,0.6);
+      position:relative;backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    /* Floating petals */
+    .petal{
+      position:absolute; width:30px; height:30px; background:linear-gradient(135deg,var(--accent2),var(--accent1));
+      border-radius:50% 50% 40% 60% / 60% 50% 50% 40%; transform:rotate(20deg); opacity:0.9;
+      filter:drop-shadow(0 6px 18px rgba(123,47,247,0.12));
+      animation: float 8s linear infinite;
+    }
+    .petal.p1{left:-20px; top:10%; animation-delay:0s;}
+    .petal.p2{right:-30px; top:30%; width:40px;height:40px; animation-duration:10s; animation-delay:1s}
+    .petal.p3{left:10%; bottom:-30px; width:26px;height:26px; animation-duration:9s; animation-delay:2s}
+    .petal.p4{right:5%; bottom:-20px; width:34px;height:34px; animation-duration:11s; animation-delay:3s}
+    @keyframes float{
+      0%{transform: translateY(0) rotate(0deg); opacity:0.95}
+      50%{transform: translateY(-28px) rotate(180deg); opacity:0.8}
+      100%{transform: translateY(0) rotate(360deg); opacity:0.95}
+    }
+
+    .headline{
+      display:flex;gap:20px;align-items:center;
+    }
+    .emoji-badge{font-size:2.6rem; width:84px; height:84px; border-radius:22px; display:grid;place-items:center;
+      background: linear-gradient(135deg,var(--accent1),var(--accent2)); color:white; box-shadow:0 8px 30px rgba(123,47,247,0.18);
+    }
+    h1{
+      font-family:'Great Vibes',cursive; font-size:48px; line-height:1; margin:0; color:#3b1251; text-shadow:0 6px 28px rgba(123,47,247,0.12);
+      transform-origin:left center; animation: pop-in 900ms ease-out both;
+    }
+    @keyframes pop-in{from{transform:scale(.88) translateY(6px); opacity:0}to{transform:none;opacity:1}}
+
+    p.lead{margin:14px 0 24px; font-size:18px; color:#4a2a4b; opacity:0.95}
+
+    .cta{
+      display:flex;gap:12px; align-items:center;
+    }
+    .btn{
+      padding:12px 20px; border-radius:14px; font-weight:700; letter-spacing:0.4px; border:0; cursor:pointer;
+      box-shadow: 0 8px 26px rgba(99,30,121,0.12); background:linear-gradient(90deg,var(--accent1),var(--accent2)); color:white;
+      transform: translateY(0); transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .btn:active{transform: translateY(2px)}
+    .ghost{background:transparent; color:#5b3a5b; padding:10px 16px; border-radius:12px; border:1px solid rgba(91,58,91,0.08)}
+
+    /* Decorative underline */
+    .underline{display:block;height:6px;border-radius:999px;margin-top:12px;width:220px;background:linear-gradient(90deg,rgba(123,47,247,0.92),rgba(246,79,89,0.9)); box-shadow:0 8px 30px rgba(246,79,89,0.06)}
+
+    /* tiny sparkle */
+    .sparkle{position:absolute; right:22px; top:18px; font-size:12px; color:#fff; opacity:0.95; transform:rotate(-12deg)}
+
+    /* responsive */
+    @media (max-width:520px){
+      h1{font-size:34px}
+      .emoji-badge{width:64px;height:64px}
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="region" aria-label="Start again invitation">
+    <div class="petal p1" aria-hidden="true"></div>
+    <div class="petal p2" aria-hidden="true"></div>
+    <div class="petal p3" aria-hidden="true"></div>
+    <div class="petal p4" aria-hidden="true"></div>
+
+    <div class="headline">
+      <div class="emoji-badge" aria-hidden="true">✨</div>
+      <div>
+        <h1>Would you like to start again with me Dilaa?</h1>
+        <span class="underline" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <p class="lead">A small, sincere invitation — wrapped in a little sparkle. If your heart says yes, press the button and let's begin anew together.</p>
+
+    <div class="cta">
+      <button class="btn" id="yesBtn">Yes — let's begin ✨</button>
+      <button class="ghost" id="noBtn">Not now</button>
+    </div>
+
+    <div class="sparkle" aria-hidden="true">💌</div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+
+    yesBtn.addEventListener('click', ()=>{
+      yesBtn.textContent = 'Starting...';
+      yesBtn.disabled = true;
+      // gentle celebration
+      burstHearts();
+      setTimeout(()=>{
+        yesBtn.textContent = "We're starting 💫";
+      },900);
+    });
+
+    noBtn.addEventListener('click', ()=>{
+      noBtn.textContent = 'Maybe later ♥';
+      noBtn.disabled = true;
+    });
+
+    function burstHearts(){
+      for(let i=0;i<14;i++){
+        const h = document.createElement('div');
+        h.textContent = ['💖','🌸','✨','💫'][Math.floor(Math.random()*4)];
+        h.style.position='fixed';
+        h.style.left = (50 + (Math.random()-0.5)*40) + '%';
+        h.style.top = (50 + (Math.random()-0.5)*40) + '%';
+        h.style.fontSize = (12 + Math.random()*36) + 'px';
+        h.style.opacity = '0.95';
+        h.style.transform = 'translate(-50%,-50%) scale(0.6)';
+        h.style.transition = 'transform 900ms cubic-bezier(.22,.9,.3,1), opacity 900ms ease-out';
+        document.body.appendChild(h);
+        requestAnimationFrame(()=>{
+          h.style.transform = `translate(${(Math.random()-0.5)*200}px,${-200 - Math.random()*120}px) scale(1)`;
+          h.style.opacity = '0';
+        });
+        setTimeout(()=>h.remove(),1100);
+      }
+    }
+  </script>
+</body>
+</html>
